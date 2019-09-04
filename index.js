@@ -1,3 +1,13 @@
+function handleLazyImg() {
+    const lazyImgs = document.querySelectorAll('img.lazyload');
+    if(lazyImgs.length > 0) {
+        lazyImgs.forEach(element => {
+            const srcAddress = element.attributes['data-src'].value;
+            element.setAttribute('src', srcAddress);
+        })
+    }
+    return true;
+}
 
 function removeElements() {
     document.getElementsByClassName('main-header-box')[0] && document.getElementsByClassName('main-header-box')[0].remove();
@@ -11,10 +21,8 @@ function removeElements() {
     document.getElementsByClassName('recommended-area')[0] && document.getElementsByClassName('recommended-area')[0].remove();
 }
 
-new Promise((resolve) => {
-    removeElements();
-    resolve();
-}).then(res => {
+handleLazyImg();
+removeElements();
+setTimeout(() => {
     window.print();
-}) 
-
+}, 1000)
